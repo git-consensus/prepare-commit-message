@@ -1,0 +1,15 @@
+#!/bin/bash
+FILE=$1
+MESSAGE=$(cat $FILE)
+KEYCHECK="ETH_ADDRESS"
+ADDFILE="$PWD/.env"
+ADDRESS="No ETH Address"
+while IFS="=" read -r key value; do
+	case "$key" in
+	  "$KEYCHECK") ADDRESS="$value" ;;
+	esac
+done < "$ADDFILE"
+if [[ "$key" == "$KEYCHECK" ]]; then
+  ADDRESS=$value
+fi
+echo "$MESSAGE $ADDRESS" > $FILE
